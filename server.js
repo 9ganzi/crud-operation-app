@@ -15,9 +15,10 @@ app.use(express.json());
 // app.use(express.static(path.join(__dirname, "client/build")));
 // app.use(express.static("./client/build"));
 
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname, "client/build")));
-// }
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
+
 // create a user
 
 app.post("/api/v1/collisions/signup", async (req, res) => {
