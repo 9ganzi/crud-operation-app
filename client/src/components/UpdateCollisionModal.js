@@ -1,7 +1,6 @@
 import "../App.css";
 import Card from "./Card";
-import React, { useRef, useState, useContext } from "react";
-import axios from "../apis/axios";
+import React, { useState, useContext } from "react";
 import classes from "./AddCollisionModal.module.css";
 import { CollisionsContext } from "../context/CollisionsContext";
 
@@ -71,32 +70,36 @@ function UpdateCollisionModal(props) {
   const update = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put("/api/v1/collisions/updateCollision", {
-        crash_date: crashDate,
-        crash_time: crashTime,
-        borough: borough,
-        zip_code: zipCode,
-        latitude: latitude,
-        longitude: longitude,
-        on_street_name: onStreetName,
-        cross_street_name: crossStreetName,
-        off_street_name: offStreetName,
-        number_of_persons_injured: numberOfPersonsInjured,
-        number_of_persons_killed: numberOfPersonsKilled,
-        contributing_factor_vehicle_1: contributingFactorVehicle1,
-        contributing_factor_vehicle_2: contributingFactorVehicle2,
-        contributing_factor_vehicle_3: contributingFactorVehicle3,
-        contributing_factor_vehicle_4: contributingFactorVehicle4,
-        contributing_factor_vehicle_5: contributingFactorVehicle5,
-        vehicle_type_code_1: vehicleTypeCode1,
-        vehicle_type_code_2: vehicleTypeCode2,
-        vehicle_type_code_3: vehicleTypeCode3,
-        vehicle_type_code_4: vehicleTypeCode4,
-        vehicle_type_code_5: vehicleTypeCode5,
-        updating_id: updatingId,
+      const response = await fetch("/api/v1/collisions/updateCollision", {
+        method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          crash_date: crashDate,
+          crash_time: crashTime,
+          borough: borough,
+          zip_code: zipCode,
+          latitude: latitude,
+          longitude: longitude,
+          on_street_name: onStreetName,
+          cross_street_name: crossStreetName,
+          off_street_name: offStreetName,
+          number_of_persons_injured: numberOfPersonsInjured,
+          number_of_persons_killed: numberOfPersonsKilled,
+          contributing_factor_vehicle_1: contributingFactorVehicle1,
+          contributing_factor_vehicle_2: contributingFactorVehicle2,
+          contributing_factor_vehicle_3: contributingFactorVehicle3,
+          contributing_factor_vehicle_4: contributingFactorVehicle4,
+          contributing_factor_vehicle_5: contributingFactorVehicle5,
+          vehicle_type_code_1: vehicleTypeCode1,
+          vehicle_type_code_2: vehicleTypeCode2,
+          vehicle_type_code_3: vehicleTypeCode3,
+          vehicle_type_code_4: vehicleTypeCode4,
+          vehicle_type_code_5: vehicleTypeCode5,
+          updating_id: updatingId,
+        }),
       });
-      console.log(response.data[0]);
-      updateCollision(response.data[0]);
+      const updatedRecord = await response.json();
+      updateCollision(updatedRecord[0]);
       props.closeBackdrop();
     } catch (err) {
       console.error(err);

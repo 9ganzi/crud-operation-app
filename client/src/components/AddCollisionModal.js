@@ -1,7 +1,6 @@
 import "../App.css";
 import Card from "./Card";
 import React, { useRef, Fragment, useState, useContext } from "react";
-import axios from "../apis/axios";
 import classes from "./AddCollisionModal.module.css";
 import { CollisionsContext } from "../context/CollisionsContext";
 
@@ -9,7 +8,6 @@ function AddCollisionModal(props) {
   const { addCollisions } = useContext(CollisionsContext);
   const crash_date_input_ref = useRef();
   const crash_time_input_ref = useRef();
-  // const borough_input_ref = useRef();
   const [borough, setBorough] = useState("");
   const zip_code_input_ref = useRef();
   const latitude_input_ref = useRef();
@@ -33,38 +31,42 @@ function AddCollisionModal(props) {
   const addCollision = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/v1/collisions/addCollision", {
-        crash_date: crash_date_input_ref.current.value,
-        crash_time: crash_time_input_ref.current.value,
-        borough: borough,
-        zip_code: zip_code_input_ref.current.value,
-        latitude: latitude_input_ref.current.value,
-        longitude: longitude_input_ref.current.value,
-        on_street_name: on_street_name_input_ref.current.value,
-        cross_street_name: cross_street_name_input_ref.current.value,
-        off_street_name: off_street_name_input_ref.current.value,
-        number_of_persons_injured:
-          number_of_persons_injured_input_ref.current.value,
-        number_of_persons_killed:
-          number_of_persons_killed_input_ref.current.value,
-        contributing_factor_vehicle_1:
-          contributing_factor_vehicle_1_input_ref.current.value,
-        contributing_factor_vehicle_2:
-          contributing_factor_vehicle_2_input_ref.current.value,
-        contributing_factor_vehicle_3:
-          contributing_factor_vehicle_3_input_ref.current.value,
-        contributing_factor_vehicle_4:
-          contributing_factor_vehicle_4_input_ref.current.value,
-        contributing_factor_vehicle_5:
-          contributing_factor_vehicle_5_input_ref.current.value,
-        vehicle_type_code_1: vehicle_type_code_1_input_ref.current.value,
-        vehicle_type_code_2: vehicle_type_code_2_input_ref.current.value,
-        vehicle_type_code_3: vehicle_type_code_3_input_ref.current.value,
-        vehicle_type_code_4: vehicle_type_code_4_input_ref.current.value,
-        vehicle_type_code_5: vehicle_type_code_5_input_ref.current.value,
+      const response = await fetch("/api/v1/collisions/addCollision", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          crash_date: crash_date_input_ref.current.value,
+          crash_time: crash_time_input_ref.current.value,
+          borough: borough,
+          zip_code: zip_code_input_ref.current.value,
+          latitude: latitude_input_ref.current.value,
+          longitude: longitude_input_ref.current.value,
+          on_street_name: on_street_name_input_ref.current.value,
+          cross_street_name: cross_street_name_input_ref.current.value,
+          off_street_name: off_street_name_input_ref.current.value,
+          number_of_persons_injured:
+            number_of_persons_injured_input_ref.current.value,
+          number_of_persons_killed:
+            number_of_persons_killed_input_ref.current.value,
+          contributing_factor_vehicle_1:
+            contributing_factor_vehicle_1_input_ref.current.value,
+          contributing_factor_vehicle_2:
+            contributing_factor_vehicle_2_input_ref.current.value,
+          contributing_factor_vehicle_3:
+            contributing_factor_vehicle_3_input_ref.current.value,
+          contributing_factor_vehicle_4:
+            contributing_factor_vehicle_4_input_ref.current.value,
+          contributing_factor_vehicle_5:
+            contributing_factor_vehicle_5_input_ref.current.value,
+          vehicle_type_code_1: vehicle_type_code_1_input_ref.current.value,
+          vehicle_type_code_2: vehicle_type_code_2_input_ref.current.value,
+          vehicle_type_code_3: vehicle_type_code_3_input_ref.current.value,
+          vehicle_type_code_4: vehicle_type_code_4_input_ref.current.value,
+          vehicle_type_code_5: vehicle_type_code_5_input_ref.current.value,
+        }),
       });
-      console.log(response);
-      addCollisions(response.data[0]);
+      const newRecord = await response.json();
+      addCollisions(newRecord[0]);
       props.closeBackdrop();
     } catch (err) {
       console.error(err);

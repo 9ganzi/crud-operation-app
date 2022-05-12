@@ -3,7 +3,7 @@ import { useState, Fragment } from "react";
 import AddCollisionModal from "./AddCollisionModal";
 import Backdrop from "./Backdrop";
 
-function AddCollision() {
+function Append() {
   const [addCollisionModalIsOpen, setAddCollisionModalIsOpen] = useState(false);
 
   function addHandler() {
@@ -31,4 +31,4 @@ function AddCollision() {
   );
 }
 
-export default AddCollision;
+export default Append;

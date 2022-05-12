@@ -1,9 +1,9 @@
 import "../App.css";
 import Card from "./Card";
 import React, { useRef, Fragment, useState } from "react";
-import axios from "../apis/axios";
 
 function Modal(props) {
+  let msg;
   const nameInputRef = useRef();
   const badgeNumInputRef = useRef();
   const usernameInputRef = useRef();
@@ -13,13 +13,18 @@ function Modal(props) {
   const signup = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/v1/collisions/signup", {
-        name: nameInputRef.current.value,
-        badge_number: badgeNumInputRef.current.value,
-        username: usernameInputRef.current.value,
-        password: passwordInputRef.current.value,
+      const response = await fetch("/api/v1/collisions/signup", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          name: nameInputRef.current.value,
+          badge_number: badgeNumInputRef.current.value,
+          username: usernameInputRef.current.value,
+          password: passwordInputRef.current.value,
+        }),
       });
-      if (response.data) {
+      const signupStatus = await response.json();
+      if (signupStatus) {
         props.closeBackdrop();
       } else {
         setIsInvalid(true);
@@ -32,19 +37,19 @@ function Modal(props) {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/v1/collisions/login", {
-        username: usernameInputRef.current.value,
-        password: passwordInputRef.current.value,
-      });
-      if (response.data) {
-        // login success
-        console.log("login success");
+      const response = await fetch("/api/v1/collisions/login", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          username: usernameInputRef.current.value,
+          password: passwordInputRef.current.value,
+        }),
+      }).then((res) => res.json());
+      if (response.message) {
+        setIsInvalid(true);
+      } else {
         props.setLoginStatus(true);
         props.closeBackdrop();
-      } else {
-        // login fail
-        console.log("login fail");
-        setIsInvalid(true);
       }
     } catch (err) {
       console.error(err);

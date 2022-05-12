@@ -71,13 +71,13 @@ app.post("/api/v1/collisions/login", (req, res) => {
               if (response) {
                 res.send(result.rows[0]);
               } else {
-                res.send(null);
+                res.send({ message: "Invalid password!" });
               }
             }
           );
           // res.send(result.rows[0]);
         } else {
-          res.send(null);
+          res.send({ message: "User does not exist!" });
         }
       }
     );

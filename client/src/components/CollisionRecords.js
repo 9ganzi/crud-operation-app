@@ -1,6 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import classes from "./CollisionRecords.module.css";
-import axios from "../apis/axios";
 import { CollisionsContext } from "../context/CollisionsContext";
 import UpdateCollisionModal from "./UpdateCollisionModal";
 import Backdrop from "./Backdrop";
@@ -15,8 +14,10 @@ const CollisionRecords = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/v1/collisions");
-        setCollisions(response.data);
+        const response = await fetch("/api/v1/collisions").then((res) =>
+          res.json()
+        );
+        setCollisions(response);
       } catch (err) {
         console.error(err);
       }
@@ -26,7 +27,9 @@ const CollisionRecords = (props) => {
 
   const deleteHandler = async (id) => {
     try {
-      const response = await axios.delete(`/api/v1/collisionsdelete/${id}`);
+      const response = await fetch(`/api/v1/collisionsdelete/${id}`, {
+        method: "DELETE",
+      });
       setCollisions(
         collisions.filter((collision) => {
           return collision.collision_id !== id;

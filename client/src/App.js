@@ -5,7 +5,7 @@ import Backdrop from "./components/Backdrop";
 import Header from "./components/Header";
 import CollisionRecords from "./components/CollisionRecords";
 import { CollisionsContextProvider } from "./context/CollisionsContext";
-import AddCollision from "./components/AddCollisionButton";
+import Append from "./components/Append";
 
 function App() {
   const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
@@ -42,7 +42,7 @@ function App() {
           loginStatus={loginStatus}
         />
         <CollisionRecords loginStatus={loginStatus} />
-        {loginStatus && <AddCollision />}
+        {loginStatus && <Append />}
         {loginModalIsOpen && (
           <Fragment>
             <Modal
