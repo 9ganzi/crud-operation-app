@@ -26,7 +26,7 @@ const CollisionRecords = (props) => {
 
   const deleteHandler = async (id) => {
     try {
-      const response = await axios.delete(`/api/v1/collisionsdelete/${id}`);
+      const response = await axios.delete(`/api/v1/collisions/delete/${id}`);
       setCollisions(
         collisions.filter((collision) => {
           return collision.collision_id !== id;
