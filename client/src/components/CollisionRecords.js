@@ -8,7 +8,6 @@ const CollisionRecords = (props) => {
   const { collisions, setCollisions } = useContext(CollisionsContext);
   const [updateCollisionModalIsOpen, setUpdateCollisionModalIsOpen] =
     useState(false);
-  const { updateCollision } = useContext(CollisionsContext);
   const { setUpdatingId } = useContext(CollisionsContext);
 
   useEffect(() => {
