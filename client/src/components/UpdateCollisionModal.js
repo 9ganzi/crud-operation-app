@@ -71,7 +71,7 @@ function UpdateCollisionModal(props) {
   const update = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put("/updateCollision", {
+      const response = await axios.put("/api/v1/collisions/updateCollision", {
         crash_date: crashDate,
         crash_time: crashTime,
         borough: borough,

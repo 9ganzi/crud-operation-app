@@ -15,7 +15,7 @@ const CollisionRecords = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/");
+        const response = await axios.get("/api/v1/collisions");
         setCollisions(response.data);
       } catch (err) {
         console.error(err);
@@ -26,7 +26,7 @@ const CollisionRecords = (props) => {
 
   const deleteHandler = async (id) => {
     try {
-      const response = await axios.delete(`delete/${id}`);
+      const response = await axios.delete(`/api/v1/collisionsdelete/${id}`);
       setCollisions(
         collisions.filter((collision) => {
           return collision.collision_id !== id;

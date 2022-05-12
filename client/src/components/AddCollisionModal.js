@@ -33,7 +33,7 @@ function AddCollisionModal(props) {
   const addCollision = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/addCollision", {
+      const response = await axios.post("/api/v1/collisions/addCollision", {
         crash_date: crash_date_input_ref.current.value,
         crash_time: crash_time_input_ref.current.value,
         borough: borough,

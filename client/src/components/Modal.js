@@ -14,7 +14,7 @@ function Modal(props) {
   const signup = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/signup", {
+      const response = await axios.post("/api/v1/collisions/signup", {
         name: nameInputRef.current.value,
         badge_number: badgeNumInputRef.current.value,
         username: usernameInputRef.current.value,
@@ -33,7 +33,7 @@ function Modal(props) {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/login", {
+      const response = await axios.post("/api/v1/collisions/login", {
         username: usernameInputRef.current.value,
         password: passwordInputRef.current.value,
       });
