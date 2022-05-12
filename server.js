@@ -38,13 +38,13 @@ app.post("/api/v1/collisions/signup", async (req, res) => {
         [username]
       );
       if (validate.rows.length != 0) {
-        res.json(null);
+        return res.json(null);
       }
       const response = await db.query(
         "INSERT INTO users (username, password, name, badge_number) VALUES($1, $2, $3, $4) RETURNING *",
         [username, hash, name, badge_number]
       );
-      res.json(response.rows);
+      return res.json(response.rows);
     });
   } catch (err) {
     console.error(err.message);
