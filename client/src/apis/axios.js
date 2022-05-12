@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://crud-operation-app.herokuapp.com/",
 });
 
 // export default axios.create();
