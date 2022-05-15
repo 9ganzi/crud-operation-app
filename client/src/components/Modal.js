@@ -3,7 +3,6 @@ import Card from "./Card";
 import React, { useRef, Fragment, useState } from "react";
 
 function Modal(props) {
-  let msg;
   const nameInputRef = useRef();
   const badgeNumInputRef = useRef();
   const usernameInputRef = useRef();
